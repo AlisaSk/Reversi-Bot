@@ -106,6 +106,20 @@ class MyBoard:
         return x_on_board and y_on_board
      
  
+    # for the greeady player
+    def find_pieces_scores(self, moves):
+        for index, move in enumerate(moves):
+            score = 0
+            # set coordinates
+            x = move[0]
+            y = move[1]
+            del_x = self.possible_directions[index][0]
+            del_y = self.possible_directions[index][1]
+            score = self.count_pieces(x, y, del_x, del_y, score)
+                 
+            self.scores.append(score)  
+
+    # for minimax player
     def find_weighted_scores(self, moves):
         for index, move in enumerate(moves):
             score = 0
@@ -118,7 +132,15 @@ class MyBoard:
                  
             self.scores.append(score)   
      
-     
+    def count_pieces(self, x, y, del_x, del_y, score):
+         # flipping all pieces and count them
+        while self.is_still_on_board(x, y) and self.play_board[x][y] != self.my_color:
+            score += 1
+            x += del_x
+            y += del_y
+ 
+        return score
+    
     def set_weights(self, x, y, del_x, del_y, score):
         # flipping all pieces and add their scores until find our piece
         while self.is_still_on_board(x, y) and self.play_board[x][y] != self.my_color:

@@ -1,11 +1,11 @@
 import random
 from board import MyBoard
  
-class MyPlayer:
-    '''Player finds the best weighted score'''
+class MinimaxPlayer:
+    '''Player finds the best weighted score using MiniMax'''
  
     def __init__(self, my_color, opponent_color):
-        self.name = 'skulaali'
+        self.name = 'skulaali' # for school assignment
         self.my_color = my_color
         self.opponent_color = opponent_color        
         self.play_board = None
@@ -54,8 +54,9 @@ class MyPlayer:
  
                 if not(my_second_board_moves):
                     continue
-                 
+                
                 my_second_board.find_weighted_scores(my_second_board_moves)
+                # my_second_board.find_pieces_scores(my_second_board_moves)
                 my_max_score = max(my_second_board.scores)
                 opponent_board.scores[index_my_move] = opponent_score - my_max_score
  
